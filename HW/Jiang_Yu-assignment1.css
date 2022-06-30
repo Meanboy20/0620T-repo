@@ -7,10 +7,9 @@ td {
 }
 
 .main-container {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   justify-content: center;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: "Gill Sans";
 }
 
 .info-table {
@@ -21,18 +20,17 @@ td {
 }
 
 .s-box {
+  display: flex;
+  align-items: center;
   background-color: blanchedalmond;
   padding: 20px;
-  min-height: 100px;
+  min-height: 120px;
 }
 .s-input {
   border: 1px solid #ddd;
-  color: rgba(0, 0, 0, 0.87);
   font-size: 16px;
   border-radius: 25px;
   width: 100%;
-  transition: box-shadow 100ms;
-  outline: none;
 }
 
 .o-list {
@@ -47,5 +45,5 @@ td {
 .d-box {
   background-color: coral;
   padding: 20px;
-  min-height: 100px;
+  min-height: 120px;
 }

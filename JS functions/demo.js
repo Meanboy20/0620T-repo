@@ -45,3 +45,21 @@ const countAge = user.reduce((pre, curr) => {
 }, {});
 
 console.log(countAge);
+
+// Filter names with age less than 30
+
+const ageGroup = user.filter((x) => x.age < 34).map((cur) => cur.firstName);
+
+console.log(ageGroup);
+
+// Use reducer to get names
+
+const youngPlayer = user.reduce((pre, cur) => {
+  cur.age < 30 ? pre.push(cur.firstName) : null;
+  return pre;
+}, []);
+
+console.log(youngPlayer);
+
+const test = user.map((x) => (x.age < 30 ? x.firstName : null));
+console.log(test);
