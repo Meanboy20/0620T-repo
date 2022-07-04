@@ -63,3 +63,12 @@ console.log(youngPlayer);
 
 const test = user.map((x) => (x.age < 30 ? x.firstName : null));
 console.log(test);
+
+const array = [
+  { firstName: "Curry", title: "The captain" },
+  { fistName: "", title: "" },
+  { firstName: "", title: "" },
+];
+
+const item = array[0].firstName;
+console.log(item);
