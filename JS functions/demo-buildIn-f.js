@@ -52,14 +52,23 @@ const ageGroup = user.filter((x) => x.age < 34).map((cur) => cur.firstName);
 
 console.log(ageGroup);
 
-// Use reducer to get names
+// Use reduce to get sum
+
+const add = (...arg) => {
+  return arg.reduce((acc, curr) => {
+    return acc + curr;
+  });
+};
+
+console.log("Sum is ", add(1, 3, 5));
+// Use reduce to get names
 
 const youngPlayer = user.reduce((pre, cur) => {
   cur.age < 30 ? pre.push(cur.firstName) : null;
   return pre;
 }, []);
 
-console.log(youngPlayer);
+console.log("Though reduce, we have player age under 30 ", youngPlayer);
 
 const test = user.map((x) => (x.age < 30 ? x.firstName : null));
 console.log(test);
@@ -72,3 +81,14 @@ const array = [
 
 const item = array[0].firstName;
 console.log(item);
+
+// writting reduce function
+
+function myReduce(acc, callback, array) {
+  //check if it is init, if = undefined, set to 0
+  acc === undefined ? 0 : acc;
+  for (let i = 0; i < array.length; i++) {
+    acc = callback(acc, array[i], i, array);
+  }
+  return acc;
+}
