@@ -43,7 +43,7 @@ const totalValue = itemsObject.reduce((acc, ele) => {
   acc = acc + ele.price;
   return acc;
 }, 0);
-console.log(totalValue);
+console.log("Total price: ", totalValue);
 console.log("\n");
 
 // Remove extra from string
@@ -79,6 +79,9 @@ function mergeArray(array1, array2) {
     return acc;
   }, {});
 
+  const array2Copy = [...array2]; //deep copy second
+
+  console.log(array2[0]);
   const res = array1.reduce((acc, ele) => {
     if (!("uuid" + ele.uuid in keys)) {
       acc.push(ele);
@@ -88,14 +91,17 @@ function mergeArray(array1, array2) {
       acc[keys["uuid" + ele.uuid]] = Object.assign({}, ele, curr);
       return acc;
     }
-  }, array2);
+  }, array2Copy);
+
+  console.log(array2Copy === array2);
+  console.log(array2Copy === res);
 
   res.map((ele) => {
     ele.role = ele.role === undefined ? null : ele.role;
     ele.name = ele.name === undefined ? null : ele.name;
   });
 
-  const final = res.sort((a, b) => {
+  res.sort((a, b) => {
     if (a.uuid < b.uuid) {
       return -1;
     }
@@ -105,12 +111,56 @@ function mergeArray(array1, array2) {
     return 0;
   });
 
-  return final;
+  return res;
 }
 
-console.log(
-  "Final versioin from function" + JSON.stringify(mergeArray(first, second))
-);
+// console.log(
+//   "Final versioin from function" + JSON.stringify(mergeArray(first, second))
+// );
+
+mergeArray(first, second).forEach((ele) => {
+  console.log(ele);
+});
+
+console.log(JSON.stringify(second));
+console.log(JSON.stringify(first));
+
+// No build in
+
+function mergeWithoutBuildIn(array1, array2) {
+  const keysFor2 = {};
+  for (let j = 0; j < array2.length; j++) {
+    const key = array2[j].uuid.toString();
+    keysFor2[key] = j;
+  }
+  const res = [];
+  const property = ["uuid", "name", "role"];
+
+  for (let i = 0; i < array1.length; i++) {
+    const a = array1[i].uuid.toString();
+    const b = keysFor2[a];
+
+    const c = array2[b]["role"];
+
+    if (array1[i].uuid.toString() in keysFor2) {
+      property.forEach((p) =>
+        array1[i][p] === undefined
+          ? (array1[i][p] = array2[keysFor2[a]][p])
+          : array1[i][p]
+      );
+      res.push(array1[i]);
+    } else {
+      res.push(array1[i]);
+    }
+  }
+
+  return res;
+}
+
+console.log("\n");
+
+// console.log("No build in function ", JSON.stringify(second));
+// console.log(JSON.stringify(mergeWithoutBuildIn(first, second)));
 
 // const marrayV2 = first.reduce((acc, ele) => {
 //   if (!("uuid" + ele.uuid in secKeys)) {
