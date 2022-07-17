@@ -43,3 +43,12 @@ console.log(sumIIFE(2)(3));
     console.log(x);
   })(2);
 })(1);
+
+const sumTest = (...rest) => {
+  if (rest.length === 2) {
+    return rest[0] + rest[1];
+  }
+  return (second) => rest[0] + second;
+};
+
+console.log(sumTest(1)(2));

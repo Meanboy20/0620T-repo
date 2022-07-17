@@ -54,7 +54,8 @@ const s = string
   .trim()
   .split(/[^A-Za-z]/)
   .filter((ele) => ele !== "")
-  .join(" ");
+  .join(" ")
+  .toLowerCase();
 
 console.log(s);
 console.log("\n");
@@ -74,14 +75,14 @@ const second = [
 ];
 
 function mergeArray(array1, array2) {
+  // Get id, index pair for array2
   const keys = array2.reduce((acc, ele, index) => {
     acc["uuid" + ele.uuid] = index;
     return acc;
   }, {});
 
-  const array2Copy = [...array2]; //deep copy second
+  const array2Copy = [...array2];
 
-  console.log(array2[0]);
   const res = array1.reduce((acc, ele) => {
     if (!("uuid" + ele.uuid in keys)) {
       acc.push(ele);
@@ -92,9 +93,6 @@ function mergeArray(array1, array2) {
       return acc;
     }
   }, array2Copy);
-
-  console.log(array2Copy === array2);
-  console.log(array2Copy === res);
 
   res.map((ele) => {
     ele.role = ele.role === undefined ? null : ele.role;
@@ -114,18 +112,11 @@ function mergeArray(array1, array2) {
   return res;
 }
 
-// console.log(
-//   "Final versioin from function" + JSON.stringify(mergeArray(first, second))
-// );
-
 mergeArray(first, second).forEach((ele) => {
   console.log(ele);
 });
 
-console.log(JSON.stringify(second));
-console.log(JSON.stringify(first));
-
-// No build in
+// No build-in
 
 function mergeWithoutBuildIn(array1, array2) {
   const keysFor2 = {};
@@ -133,34 +124,43 @@ function mergeWithoutBuildIn(array1, array2) {
     const key = array2[j].uuid.toString();
     keysFor2[key] = j;
   }
-  const res = [];
+  const res = [...array2];
   const property = ["uuid", "name", "role"];
 
   for (let i = 0; i < array1.length; i++) {
-    const a = array1[i].uuid.toString();
-    const b = keysFor2[a];
-
-    const c = array2[b]["role"];
+    const currId = array1[i].uuid.toString();
 
     if (array1[i].uuid.toString() in keysFor2) {
       property.forEach((p) =>
         array1[i][p] === undefined
-          ? (array1[i][p] = array2[keysFor2[a]][p])
+          ? (array1[i][p] = array2[keysFor2[currId]][p])
           : array1[i][p]
       );
+      res.pop();
       res.push(array1[i]);
     } else {
       res.push(array1[i]);
     }
   }
 
+  res.sort((a, b) => {
+    if (a.uuid < b.uuid) {
+      return -1;
+    }
+    if (a.uuid > b.uuid) {
+      return 1;
+    }
+    return 0;
+  });
+
   return res;
 }
 
 console.log("\n");
 
-// console.log("No build in function ", JSON.stringify(second));
-// console.log(JSON.stringify(mergeWithoutBuildIn(first, second)));
+console.log("No build-in");
+
+console.log(JSON.stringify(mergeWithoutBuildIn(first, second)));
 
 // const marrayV2 = first.reduce((acc, ele) => {
 //   if (!("uuid" + ele.uuid in secKeys)) {
@@ -190,3 +190,42 @@ console.log("\n");
 // });
 
 // Combine everything to function
+
+a1 = [
+  { uuid: 2, name: "test" },
+  { uuid: 5, name: "test5" },
+  { uuid: 3, name: "tes3" },
+];
+
+a2 = [
+  { uuid: 6, role: "pm" },
+  { uuid: 4, role: "engineer" },
+  { uuid: 1, role: "manager" },
+  { uuid: 2, role: "associate" },
+];
+
+const map = {};
+const mergedArrayT = [...a1, ...a2];
+
+mergedArrayT.forEach((ele) => {
+  if (!map[ele.uuid]) {
+    map[ele.uuid] = {
+      uuid: ele.uuid,
+      name: !ele.name ? null : ele.name,
+      role: !ele.role ? null : ele.role,
+    };
+  } else {
+    map[ele.uuid] = { ...map[ele.uuid], ...ele };
+  }
+});
+
+const sortedArray = Object.values(map).sort((left, right) => {
+  return left.uuid - right.uuid;
+});
+console.log("\n");
+
+console.log(map);
+console.log(mergedArrayT);
+
+console.log("\n");
+mergedArrayT.forEach((ele) => console.log(ele));
