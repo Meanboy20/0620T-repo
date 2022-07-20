@@ -29,14 +29,13 @@ const tableInfo = {
   ],
 };
 
-let tableContainer = document.getElementById("table");
-let table = document.createElement("table");
-tableContainer.appendChild(table);
+function generateTable(id) {
+  let tableContainer = document.getElementById(id);
+  let table = document.createElement("table");
+  tableContainer.appendChild(table);
 
-function generateTable(table) {
   let thead = table.createTHead();
   let row = thead.insertRow();
-
   for (let key of tableInfo.tableHeader) {
     let th = document.createElement("th");
     let text = document.createTextNode(key);
@@ -55,16 +54,15 @@ function generateTable(table) {
   }
 }
 
-generateTable(table);
+generateTable("table");
 
 // Ordered List
 const list = ["HTML", "JavaScript", "CSS", "React", "Redux", "Java"];
 
-let listContainer = document.getElementById("table");
-let oList = document.createElement("ol");
-listContainer.appendChild(oList);
-
-function generateList(oList) {
+function generateList(id) {
+  let listContainer = document.getElementById(id);
+  let oList = document.createElement("ol");
+  listContainer.appendChild(oList);
   for (info of list) {
     let li = document.createElement("li");
     oList.appendChild(li);
@@ -73,7 +71,7 @@ function generateList(oList) {
   }
 }
 
-generateList(oList);
+generateList("o-list");
 
 // Dropdown box
 const dropDownList = [
@@ -85,11 +83,10 @@ const dropDownList = [
   { value: "sanJose", content: "San Jose" },
 ];
 
-let dropBoxContainer = document.getElementById("d-box");
-let dBox = document.createElement("select");
-dropBoxContainer.appendChild(dBox);
-
-function generateDBox(dBox) {
+function generateDBox(id) {
+  let dropBoxContainer = document.getElementById(id);
+  let dBox = document.createElement("select");
+  dropBoxContainer.appendChild(dBox);
   for (info of dropDownList) {
     let option = document.createElement("option");
     dBox.appendChild(option);
@@ -98,7 +95,7 @@ function generateDBox(dBox) {
   }
 }
 
-generateDBox(dBox);
+generateDBox("d-box");
 
 {
   /* <select name="address" id="address">

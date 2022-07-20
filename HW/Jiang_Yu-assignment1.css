@@ -13,7 +13,7 @@ td {
 }
 
 .info-table {
-  background-color: aqua;
+  /* background-color: aqua; */
   padding: 20px;
   position: relative;
   text-align: center;
@@ -22,7 +22,7 @@ td {
 .s-box {
   display: flex;
   align-items: center;
-  background-color: blanchedalmond;
+  /* background-color: blanchedalmond; */
   padding: 20px;
   min-height: 120px;
 }
@@ -34,16 +34,16 @@ td {
 }
 
 .o-list {
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
   padding: 20px;
 }
 
 .u-list {
-  background-color: cornflowerblue;
+  /* background-color: cornflowerblue; */
   padding: 20px;
 }
 .d-box {
-  background-color: coral;
+  /* background-color: coral; */
   padding: 20px;
   min-height: 120px;
 }
