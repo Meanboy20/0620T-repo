@@ -29,49 +29,54 @@ const tableInfo = {
   ],
 };
 
-function generateTable(id) {
-  let tableContainer = document.getElementById(id);
+function generateTableByMap(id) {
+  //Create table
   let table = document.createElement("table");
-  tableContainer.appendChild(table);
 
+  // Create header
   let thead = table.createTHead();
   let row = thead.insertRow();
-  for (let key of tableInfo.tableHeader) {
-    let th = document.createElement("th");
-    let text = document.createTextNode(key);
+  tableInfo.tableHeader.map((ele) => {
+    let td = row.insertCell();
+    td.textContent = ele;
+  });
 
-    th.appendChild(text);
-    row.appendChild(th);
-  }
-
-  for (info of tableInfo.tableContent) {
+  //Create content
+  tableInfo.tableContent.map((ele) => {
     let row = table.insertRow();
-    for (key in info) {
+    Object.keys(ele).map((key) => {
       let cell = row.insertCell();
-      let text = document.createTextNode(info[key]);
-      cell.appendChild(text);
-    }
-  }
+      cell.textContent = ele[key];
+    });
+  });
+
+  // Append to DOM
+  let domTarget = document.getElementById(id);
+  domTarget.appendChild(table);
 }
 
-generateTable("table");
+generateTableByMap("test-table");
 
-// Ordered List
+//  List
 const list = ["HTML", "JavaScript", "CSS", "React", "Redux", "Java"];
 
-function generateList(id) {
+function generateList(id, type) {
   let listContainer = document.getElementById(id);
-  let oList = document.createElement("ol");
-  listContainer.appendChild(oList);
-  for (info of list) {
+  let newList = document.createElement(type);
+
+  let listItem = list.map((info) => {
     let li = document.createElement("li");
-    oList.appendChild(li);
-    let text = document.createTextNode(info);
-    li.appendChild(text);
-  }
+    li.textContent = info;
+    return li;
+  });
+
+  newList.append(...listItem);
+  listContainer.appendChild(newList);
 }
 
-generateList("o-list");
+generateList("o-list", "ol");
+
+generateList("u-list", "ul");
 
 // Dropdown box
 const dropDownList = [
@@ -86,13 +91,16 @@ const dropDownList = [
 function generateDBox(id) {
   let dropBoxContainer = document.getElementById(id);
   let dBox = document.createElement("select");
+
+  let list = dropDownList.map(({ value, content }) => {
+    let selection = document.createElement("option");
+    selection.value = value;
+    selection.textContent = content;
+    return selection;
+  });
+
+  dBox.append(...list);
   dropBoxContainer.appendChild(dBox);
-  for (info of dropDownList) {
-    let option = document.createElement("option");
-    dBox.appendChild(option);
-    let text = document.createTextNode(info.content);
-    option.appendChild(text);
-  }
 }
 
 generateDBox("d-box");

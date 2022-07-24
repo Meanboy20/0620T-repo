@@ -160,36 +160,7 @@ console.log("\n");
 
 console.log("No build-in");
 
-console.log(JSON.stringify(mergeWithoutBuildIn(first, second)));
-
-// const marrayV2 = first.reduce((acc, ele) => {
-//   if (!("uuid" + ele.uuid in secKeys)) {
-//     acc.push(ele);
-//     return acc;
-//   } else {
-//     const curr = second[secKeys["uuid" + ele.uuid]];
-//     acc[secKeys["uuid" + ele.uuid]] = Object.assign({}, ele, curr);
-//     return acc;
-//   }
-// }, second);
-
-// marrayV2.map((ele) => {
-//   ele.role = ele.role === undefined ? null : ele.role;
-//   ele.name = ele.name === undefined ? null : ele.name;
-// });
-
-// Sort by uuid
-// let sortedArray2 = marrayV2.sort((a, b) => {
-//   if (a.uuid < b.uuid) {
-//     return -1;
-//   }
-//   if (a.uuid > b.uuid) {
-//     return 1;
-//   }
-//   return 0;
-// });
-
-// Combine everything to function
+// console.log(JSON.stringify(mergeWithoutBuildIn(first, second)));
 
 a1 = [
   { uuid: 2, name: "test" },
@@ -225,7 +196,6 @@ const sortedArray = Object.values(map).sort((left, right) => {
 console.log("\n");
 
 console.log(map);
-console.log(mergedArrayT);
 
 console.log("\n");
-mergedArrayT.forEach((ele) => console.log(ele));
+sortedArray.forEach((ele) => console.log(ele));
